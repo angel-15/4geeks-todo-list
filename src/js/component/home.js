@@ -37,6 +37,17 @@ export class Home extends React.Component {
 		}
 	}
 
+	handleDeleteTask = indexTask => {
+		let filteredTasks = this.state.tasks.filter(
+			(currentTask, indexCurrentTask) => indexCurrentTask !== indexTask
+		);
+		console.log(filteredTasks, indexTask, this.state);
+		this.setState({
+			...this.state,
+			tasks: filteredTasks
+		});
+	};
+
 	render() {
 		console.log(this.state);
 		return (
@@ -52,7 +63,18 @@ export class Home extends React.Component {
 				<ul>
 					{this.state.tasks.map((task, index) => {
 						console.log(task, index);
-						return <li key={index}>{task}</li>;
+						return (
+							<li key={index}>
+								{task}
+								<button
+									type="button"
+									onClick={() =>
+										this.handleDeleteTask(index)
+									}>
+									X
+								</button>
+							</li>
+						);
 					})}
 				</ul>
 				<footer>Tareas por hacer: {this.state.tasks.length}</footer>
